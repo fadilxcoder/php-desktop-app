@@ -1,0 +1,8 @@
+# Ignore
+*.*
+
+# Allow
+!www/*
+!settings.json
+!.gitignore
+!php/*

@@ -1,0 +1,6 @@
+# Ignore
+*.*
+
+# Allow
+!php.ini
+!.gitignore
