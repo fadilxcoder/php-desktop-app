@@ -1,8 +1,10 @@
 # Ignore
 *.*
+webcache/*
 
 # Allow
 !www/*
 !settings.json
 !.gitignore
 !php/*
+!chrome-app-launcher.ico
