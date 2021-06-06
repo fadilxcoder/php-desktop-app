@@ -8,3 +8,4 @@ webcache/*
 !.gitignore
 !php/*
 !chrome-app-launcher.ico
+!README.md
