@@ -8,6 +8,7 @@
 - https://github.com/cztomczak/phpdesktop/wiki
 - https://github.com/cztomczak/phpdesktop/wiki/Settings
 - https://github.com/cztomczak/phpdesktop/wiki/Chrome-settings
+- https://github.com/tlatsas/bash-spinner.git (**BASH script** - *Added spinner*)
 
 ## Configuration `settings.json`
 
