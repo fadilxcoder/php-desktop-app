@@ -5,14 +5,14 @@ source "$(pwd)/bash/spinner.sh"
 
 # Variables
 REPO=codebase
-GIT=https://github.com/fadilxcoder/keys.git
-GIT_BRANCH=php-desktop
+GIT=https://github.com/fadilxcoder/jwt-mobile-app.git
+GIT_BRANCH=master
 
 # Setting up app repository
 start_spinner 'App installation...'
 git clone -b $GIT_BRANCH $GIT $REPO &> /dev/null # Prevent display in console
 cd $REPO
-rm -rf .git/ .gitignore README.md
+rm -rf .git/ README.md _config.yml favicon.ico
 cd ..
 mv index.php index.php.old
 mv $REPO/{*,.*} ./ &> /dev/null
@@ -21,7 +21,7 @@ stop_spinner $?
 
 # PHP packages installation
 start_spinner 'Packages installation...'
-composer install --quiet --ignore-platform-reqs
+npm install --silent
 stop_spinner $?
 
 start_spinner 'System check...'
