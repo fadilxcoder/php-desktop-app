@@ -1,0 +1,28 @@
+{
+  "name": "jwt-mobile-app",
+  "version": "1.0.0",
+  "description": "- Using javascript class (import / export) - Verify Cerfificate to check if CLIENT is VALID - If CLIENT is VALID, enable JWT process",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fadilxcoder/jwt-mobile-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fadilxcoder/jwt-mobile-app/issues"
+  },
+  "homepage": "https://github.com/fadilxcoder/jwt-mobile-app#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "babel-loader": "^8.2.2",
+    "babel-polyfill": "^6.26.0",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1"
+  }
+}
