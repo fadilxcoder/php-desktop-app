@@ -8,7 +8,7 @@ REPO=codebase
 GIT=https://github.com/fadilxcoder/jwt-mobile-app.git
 GIT_BRANCH=master
 
-# Setting up app repository
+# setting up app repository
 start_spinner 'App installation...'
 git clone -b $GIT_BRANCH $GIT $REPO &> /dev/null # Prevent display in console
 cd $REPO
@@ -19,9 +19,14 @@ mv $REPO/{*,.*} ./ &> /dev/null
 rm -rf $REPO
 stop_spinner $?
 
-# PHP packages installation
+# npm package installation
 start_spinner 'Packages installation...'
-npm install --silent
+npm install --silent &> /dev/null
+stop_spinner $?
+
+# compiling assets
+start_spinner 'Compiling assets...'
+npm run build &> /dev/null
 stop_spinner $?
 
 start_spinner 'System check...'
