@@ -4,7 +4,7 @@ module.exports = {
     mode: "production",
     entry: {
         polyfill: "babel-polyfill",
-        app: "./assets/libs/scripts.js"
+        script: "./assets/js/init.js"
     },
     output: {
         filename: "[name].bundle.js",
@@ -18,8 +18,8 @@ module.exports = {
                 loader: "babel-loader",
                 options: {
                     presets: ["@babel/preset-env", {
-                                'plugins': ['@babel/plugin-proposal-class-properties']
-                            }]
+                        'plugins': ['@babel/plugin-proposal-class-properties']
+                    }]
                 }
             }
         }]

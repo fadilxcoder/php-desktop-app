@@ -9,4 +9,4 @@ webcache/*
 !php/*
 !chrome-app-launcher.ico
 !README.md
-!www/bash/*
+!www/assets/**

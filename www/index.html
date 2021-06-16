@@ -17,26 +17,24 @@
             <form class="formWrapper" id="form-process" method="post">
                 <ul id="action-list">
                     <li>
-                        <a href="#" id="VERIFY_KEY">Verify Key</a>
+                        <a href="#" id="REQUEST_JWT" title="Request JWT from server (Encrypted server side - private key)">Request JWT</a>
                     </li>
                     <li>
-                        <a href="#" id="GET_TOKEN">Get Token</a>
+                        <a href="#" id="SEND_JWT" title="Send JWT to server (Encrypted client side - private key)">Send JWT</a>
                     </li>
                     <li>
-                        <a href="#" id="VERIFY_TOKEN">Verify Token</a>
+                        <a href="#" id="VERIFY_TOKEN#">Verify Token</a>
                     </li>
                 </ul>
                 <div class="field-wrapper">
-                    <input type="text" name="data" id="input-value" placeholder="Any text to send to server..">
+                    <input type="text" name="data" id="input-value" readonly>
                 </div>
             </form>
             <div id="api">
                 <div id="api-response"></div>
             </div>
         </main>
-        <script src="assets/libs/jquery-3.5.1.min.js"></script>
-        <!-- <script type="module" src="assets/libs/scripts.js"></script> -->
         <script src="dist/polyfill.bundle.js"></script>
-        <script src="dist/app.bundle.js"></script>
+        <script src="dist/script.bundle.js"></script>
     </body>
 </html>
