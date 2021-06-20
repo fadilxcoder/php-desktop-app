@@ -1,10 +1,12 @@
 import Cookie from '../plugins/cookie.js';
 import $ from "jquery";
 const sign = require('jwt-encode');
+const consola = require("consola");
 
 class Main
 {
     // Constants
+
     _PK = localStorage.getItem('PUBLIC_KEY')
     _SERVER_URL = 'http://localhost/ci-jwt-api/api/';
     _OUTPUT = $('#api');
@@ -23,60 +25,23 @@ class Main
         'API_BEARER_JWT' : 'api-bearer-verification'
     };
 
-    // Actions
-
-    _ACTION = {
-        'REQUEST_JWT' : '_requestJwt',
-        'SEND_JWT' : '_sendJwt',
-        'API_BEARER_JWT' : '_apiHandler',
-    };
-
     constructor(){
-        this.onClickEvents();
+        this.isClientValid();
+        this.apiHandler();
     }
 
     /* --- Public Methods --- */
 
-    onClickEvents() {
+    isClientValid() {
+        var bearer = Cookie.get('BR');
         var thisObj = this;
 
-        $(document).on('click', '#action-list a', function(e){
-            e.preventDefault();
-            var $action = thisObj._action(this);
-            thisObj.[$action](); // Calling method dynamically
-        });
+        if (typeof bearer === 'undefined') {
+            thisObj.sendJwt();
+        }
     }
 
-    /* --- Private Methods --- */
-
-    _requestJwt() {
-        var thisObj = this;
-        var $url = thisObj._route('REQUEST_JWT');
-
-        $.ajax({
-            url     : $url,
-            type    : 'POST',
-            cache   : false,
-            data    : {
-                'request_access' : true,
-            },
-            dataType    : 'json',
-            beforeSend	: function(){
-                thisObj._OUTPUT.prepend('<div class="loader"></div>');
-            }
-        })
-        .done( function (data, textStatus, jqXHR) { 
-            thisObj._OUTPUT.find('.loader').remove();
-            thisObj._OUTPUT.find('#api-response').html('<p>' + JSON.stringify(data) + '</p>');
-        })
-        .fail( function (jqXHR, textStatus, errorThrown) { 
-            thisObj._OUTPUT.find('.loader').remove();
-            thisObj._OUTPUT.find('#api-response').html('<p>' + JSON.stringify(errorThrown) + '</p>');
-        })
-        ;
-    }
-
-    _sendJwt() {
+    sendJwt() {
         var thisObj = this;
         var $url = thisObj._route('SEND_JWT');
 
@@ -88,23 +53,18 @@ class Main
                 'signature' : sign(thisObj._USER, thisObj._PK),
             },
             dataType    : 'json',
-            beforeSend	: function(){
-                thisObj._OUTPUT.prepend('<div class="loader"></div>');
-            }
         })
-        .done( function (data, textStatus, jqXHR) { 
-            thisObj._OUTPUT.find('.loader').remove();
-            thisObj._OUTPUT.find('#api-response').html('<p>' + JSON.stringify(data) + '</p>');
+        .done( function (data) {
             Cookie.set('BR', data.bearer, {expires: 1});
+            consola.success('Bearer issued');
         })
-        .fail( function (jqXHR, textStatus, errorThrown) { 
-            thisObj._OUTPUT.find('.loader').remove();
-            thisObj._OUTPUT.find('#api-response').html('<p>' + JSON.stringify(errorThrown) + '</p>');
+        .fail( function () { 
+            consola.fatal('Bearer was not issued');
         })
         ;
     }
 
-    _apiHandler() {
+    apiHandler() {
         var thisObj = this;
         var $url = thisObj._route('API_BEARER_JWT');
 
@@ -112,30 +72,22 @@ class Main
             url     : $url,
             type    : 'POST',
             cache   : false,
-            data    : {
-                'val' : 132,
-            },
             headers : {
                 'Authorization' : Cookie.get('BR'),
-                // 'Access-Control-Allow-Origin' : '*',
-                // 'Access-Control-Allow-Methods' : 'DELETE, POST, GET, OPTIONS',
-                // 'Access-Control-Allow-Headers' : 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With',
             },
             dataType    : 'json',
-            beforeSend	: function(){
-                thisObj._OUTPUT.prepend('<div class="loader"></div>');
-            }
         })
-        .done( function (data, textStatus, jqXHR) { 
-            thisObj._OUTPUT.find('.loader').remove();
+        .done( function (data) { 
             thisObj._OUTPUT.find('#api-response').html('<p>' + JSON.stringify(data) + '</p>');
+            consola.success('Valid Authorization Bearer ');
         })
-        .fail( function (jqXHR, textStatus, errorThrown) { 
-            thisObj._OUTPUT.find('.loader').remove();
-            thisObj._OUTPUT.find('#api-response').html('<p>' + JSON.stringify(errorThrown) + '</p>');
+        .fail( function () { 
+            consola.fatal('Invalid Authorization Bearer !');
         })
         ;
     }
+
+    /* --- Private Methods --- */
 
     // Routes finder
 
@@ -148,20 +100,6 @@ class Main
         }
 
         return thisObj._SERVER_URL + thisObj._ROUTES[name];; 
-    }
-
-    // Action finder
-
-    _action(Obj) {
-        var thisObj = this;
-        var $key = $(Obj).attr('id');
-
-        if ( !($key in thisObj._ACTION) ) {
-            alert('Action does not exist !');
-            return;
-        }
-
-        return thisObj._ACTION[$key];; 
     }
 }
 

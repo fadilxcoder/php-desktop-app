@@ -3,7 +3,7 @@
 @font-face {
     font-family: OpenSans;
     src: url(../fonts/OpenSans-Regular.ttf);
-  }
+}
 
 body{
     margin:0;
@@ -12,34 +12,6 @@ body{
     background: url(../images/back.jpg);
     background-size: cover;
 }
-.formWrapper{
-    margin-top: 25px;
-    height: 70px;
-    position: relative;
-}
-.field-wrapper input{
-    width: calc(100% - 20px);
-    padding: 10px;
-    outline: none;
-    border: 1px solid #2840c5;
-}
-.field-wrapper{
-    margin-bottom: 10px;
-}
-#submit-btn{
-    width: 100%;
-    background: #2840c5;
-    border: none;
-    color: #FFF;
-    outline: none;
-    padding: 10px;
-    font-family: OpenSans;
-}
-.field-wrapper label.error{
-    color: red !important;
-    font-size: 12px !important;
-    clear: both !important;
-}
 .alert-success{
     color: green !important;
 }
@@ -47,39 +19,11 @@ body{
     color: red !important;
 }
 
-/* CSS Loader */
-.loader {
-    border: 5px solid #f3f3f3; /* Light grey */
-    border-top: 5px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    -webkit-animation: spin 2s linear infinite; /* Safari */
-    animation: spin 2s linear infinite;
-    position: absolute;
-    right: 0;
-    left: 0;
-    margin: 0 auto;
-    top: 25px;
-}
-  
-/* Safari */
-@-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-}
-  
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-/* EOF CSS Loader */
-
 #api{
     padding: 10px;
     margin: 0 auto;
     position: relative;
-    top: 70px;
+    top: 20px;
 }
 #api #api-response{
     height: 100%;
@@ -88,26 +32,6 @@ body{
 #api-response p{
     overflow-wrap: break-word;
     line-height: 2;
-}
-
-ul#action-list{
-    padding: 0px;
-    margin: 0 auto;
-    margin-bottom: 25px;
-    text-align: center;
-}
-
-ul#action-list li{
-    display: inline-flex;
-    list-style: none;
-    margin: 0px 10px;
-}
-
-ul#action-list li a{
-    text-decoration: none;
-    color: white;
-    background-color: #2840c5;
-    padding: 10px;
 }
 
 main{
