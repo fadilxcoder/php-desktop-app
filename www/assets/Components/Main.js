@@ -2,6 +2,7 @@ import Cookie from '../plugins/cookie.js';
 import $ from "jquery";
 const sign = require('jwt-encode');
 const consola = require("consola");
+const jspreadsheet = require("jspreadsheet-ce");
 
 class Main
 {
@@ -20,14 +21,17 @@ class Main
     // Routes
 
     _ROUTES = {
-        'REQUEST_JWT' : 'request-jwt',
         'SEND_JWT' : 'send-jwt-for-verification',
-        'API_BEARER_JWT' : 'api-bearer-verification'
+        'USERS_LISTING' : 'users-listings'
     };
+
+    Table = [];
+    USERS_LIST = [];
 
     constructor(){
         this.isClientValid();
-        this.apiHandler();
+        this.getUsers();
+        this.clickGetData();
     }
 
     /* --- Public Methods --- */
@@ -64,29 +68,107 @@ class Main
         ;
     }
 
-    apiHandler() {
+    getUsers() {
         var thisObj = this;
-        var $url = thisObj._route('API_BEARER_JWT');
+        var $url = thisObj._route('USERS_LISTING');
 
         $.ajax({
             url     : $url,
             type    : 'POST',
             cache   : false,
-            headers : {
-                'Authorization' : Cookie.get('BR'),
+            data    : {
+                'signature' : sign(thisObj._USER, thisObj._PK),
             },
             dataType    : 'json',
         })
-        .done( function (data) { 
-            thisObj._OUTPUT.find('#api-response').html('<p>' + JSON.stringify(data) + '</p>');
-            consola.success('Valid Authorization Bearer ');
+        .done( function (data) {
+            thisObj.USERS_LIST = data;
+            thisObj.initSpreadSheet();
         })
         .fail( function () { 
-            consola.fatal('Invalid Authorization Bearer !');
+            console.log("fail");
         })
         ;
     }
 
+    initSpreadSheet() {
+        var thisObj = this;
+        this.Table = jspreadsheet($('#spreadsheet').get(0), {
+            data:thisObj.USERS_LIST.response,
+            columns:[
+                { 
+                    type: 'text',
+                    title:'Name',
+                    width:100 
+                },
+                {
+                    type: 'text',
+                    title:'Surname',
+                    width:100 
+                },
+                {
+                    type: 'text',
+                    title:'Email',
+                    width:150 
+                },
+                {
+                    type: 'calendar',
+                    title:'Registered',
+                    width:100 
+                },
+                {
+                    type:'dropdown',
+                    title:'QA',
+                    width:75, 
+                    source:['A','B','AB', 'BA','O']
+                },
+                {
+                    type:'checkbox',
+                    title:'Active', 
+                    width:25
+                },
+                {
+                    type: 'numeric', 
+                    title: 'Net worth', 
+                    width: 100, 
+                    mask: '$ #.##,00', 
+                    decimal: ',' 
+                },
+            ],
+            minDimensions:[6,10],
+            tableOverflow:true,
+        });
+    }
+
+    clickGetData() {
+        var thisObj = this;
+        var $url = thisObj._route('USERS_LISTING');
+
+        $(document).on('click', 'button#get-data', function(e) {
+            e.preventDefault();
+            thisObj.USERS_LIST = thisObj.Table.getJson();
+            console.log(thisObj.Table.getData());
+
+            $.ajax({
+                url     : $url,
+                type    : 'POST',
+                cache   : false,
+                data    : {
+                    'signature' : sign(thisObj._USER, thisObj._PK),
+                    'users' : thisObj.USERS_LIST,
+                },
+                dataType    : 'json',
+            })
+            .done( function (data) {
+                console.log(data);
+            })
+            .fail( function () { 
+                console.log("insert / update failed !");
+            })
+            ;
+
+        });
+    }
     /* --- Private Methods --- */
 
     // Routes finder

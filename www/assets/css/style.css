@@ -1,5 +1,8 @@
 /* fadilxcoder */
 
+@import url('./jexcel.css');
+@import url('./jsuites.css');
+
 @font-face {
     font-family: OpenSans;
     src: url(../fonts/OpenSans-Regular.ttf);

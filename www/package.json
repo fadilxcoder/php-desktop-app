@@ -29,6 +29,7 @@
   "dependencies": {
     "consola": "^2.15.3",
     "jquery": "^3.6.0",
+    "jspreadsheet-ce": "^4.7.3",
     "jwt-encode": "^1.0.1"
   }
 }
