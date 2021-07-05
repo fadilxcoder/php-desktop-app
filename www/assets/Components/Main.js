@@ -147,7 +147,6 @@ class Main
         $(document).on('click', 'button#get-data', function(e) {
             e.preventDefault();
             thisObj.USERS_LIST = thisObj.Table.getJson();
-            console.log(thisObj.Table.getData());
 
             $.ajax({
                 url     : $url,
@@ -160,13 +159,12 @@ class Main
                 dataType    : 'json',
             })
             .done( function (data) {
-                console.log(data);
+                console.log('OK !');
             })
             .fail( function () { 
                 console.log("insert / update failed !");
             })
             ;
-
         });
     }
     /* --- Private Methods --- */
