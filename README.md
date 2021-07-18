@@ -8,6 +8,17 @@
 - **Send JWT** - Request Authorization Bearer from server / Sending jwt sign (anonymous user object & public key), Getting API `Bearer` - jwt encode (authenticated user & private key)
 - **API Bearer JWT** - Use client bearer token -> JWT server -> API server -> JWT server -> Client
 
+# APP
+
+- https://github.com/cztomczak/phpdesktop/wiki
+- https://github.com/cztomczak/phpdesktop/wiki/Settings
+- https://github.com/cztomczak/phpdesktop/wiki/Chrome-settings
+
+# Configuration `settings.json`
+
+- `web_server` > `listen_on` : port should be in between **49152–65535**
+- `chrome` > `external_navigation` : **false** to open in OS default browser
+
 # Resources
 
 - **jwt-encode** - `npm i jwt-encode` - https://www.npmjs.com/package/jwt-encode
