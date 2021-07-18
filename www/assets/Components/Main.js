@@ -16,6 +16,7 @@ class Main
         'uname' : 'api@client.authorize',
         'role' : 'anonymous'
     };
+    _IS_BEARER_PRESENT= false;
     
     // Routes
 
@@ -38,6 +39,8 @@ class Main
 
         if (typeof bearer === 'undefined') {
             thisObj.sendJwt();
+        } else {
+            thisObj._IS_BEARER_PRESENT = true;
         }
     }
 
@@ -56,7 +59,9 @@ class Main
         })
         .done( function (data) {
             Cookie.set('BR', data.bearer, {expires: 1});
+            thisObj._IS_BEARER_PRESENT = true;
             consola.success('Bearer issued');
+            location.reload(true);
         })
         .fail( function () { 
             consola.fatal('Bearer was not issued');
@@ -66,6 +71,11 @@ class Main
 
     apiHandler() {
         var thisObj = this;
+
+        if (thisObj._IS_BEARER_PRESENT === false) {
+            return;
+        }
+
         var $url = thisObj._route('API_BEARER_JWT');
 
         $.ajax({
