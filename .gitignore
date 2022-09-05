@@ -10,3 +10,4 @@ webcache/*
 !chrome-app-launcher.ico
 !README.md
 !www/assets/**
+!img/*
