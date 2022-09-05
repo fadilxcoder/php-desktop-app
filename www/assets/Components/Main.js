@@ -43,7 +43,7 @@ class Main
         $(document).on('click', '#action-list a', function(e){
             e.preventDefault();
             var $action = thisObj._action(this);
-            thisObj.[$action](); // Calling method dynamically
+            thisObj[$action](); // Calling method dynamically
         });
     }
 
